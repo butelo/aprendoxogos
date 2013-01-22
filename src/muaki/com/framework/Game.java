@@ -3,7 +3,7 @@ package muaki.com.framework;
 public interface Game {
 //    public Input getInput();
 
-    public FileIO getFileIO();
+//    public FileIO getFileIO();
 
     public Graphics getGraphics();
 
