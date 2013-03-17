@@ -1,23 +1,33 @@
 package muaki.com.androidxogos.a;
 
+import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
-import android.view.Menu;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends ListActivity {
+    String tests[] = { "GLSurfaceViewTest","OpenGlProba1"  };
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-//        esto vai pala   
+        setListAdapter(new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, tests));
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.activity_main, menu);
-        return true;
+    protected void onListItemClick(ListView list, View view, int position,
+            long id) {
+        super.onListItemClick(list, view, position, id);
+        String testName = tests[position];
+        try {
+            Class clazz = Class
+                    .forName("muaki.com.androidxogos.a." + testName);
+            Intent intent = new Intent(this, clazz);
+            startActivity(intent);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
-    
 }
